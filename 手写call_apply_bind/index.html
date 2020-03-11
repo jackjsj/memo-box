@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script src="call.js"></script>
+  <script src="apply.js"></script>
+  <script src="bind.js"></script>
+  <script>
+    // test
+    this.name = "Jack";
+    const person = {
+      name: "Jesse"
+    };
+    function saySomething(wd) {
+      console.log(wd + ", " + this.name);
+    }
+    console.log("---------es6call----------");
+    saySomething.es6Call(null, "hello");
+    console.log("---------es6apply----------");
+    saySomething.es6Apply(null, null);
+    console.log("---------es6bind----------");
+    const fn = saySomething.es6Bind(person, "aa");
+    fn("hello");
+  </script>
+</html>

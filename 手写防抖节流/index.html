@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      id="box"
+      style="width:400px;
+    height:400px;border:1px solid #ddd;"
+    ></div>
+  </body>
+  <script>
+    let count = 0;
+
+    // 防抖
+    function debounce(fn, delay, immediate) {
+      let timer;
+      return function(...args) {
+        // 再次触发就重新计时
+        clearTimeout(timer);
+        if (immediate) {
+          if (!timer) {
+            fn.apply(this, args);
+          }
+          timer = setTimeout(() => {
+            timer = null;
+          }, delay);
+        } else {
+          timer = setTimeout(() => {
+            fn.apply(this, args);
+          }, delay);
+        }
+      };
+    }
+
+    function throttle(fn, delay, head, tail = true) {
+      let timer;
+      if (head && tail) {
+        // 有尾有头
+        return function(...args) {
+          if (!timer) {
+            if (timer === undefined) {
+              fn.apply(this, args);
+            }
+            // 只有timer为undefined或null才会触发，一般是第一次为undefined，触发，然后隔固定的一段时间后，timer又为null,又可以触发。
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = null;
+            }, delay);
+          }
+        };
+      } else if (head && !tail) {
+        // 有头无尾
+        return function(...args) {
+          if (!timer) {
+            // 只有timer为undefined或null才会触发，一般是第一次为undefined，触发，然后隔固定的一段时间后，timer又为null,又可以触发。
+            fn.apply(this, args);
+            timer = setTimeout(() => {
+              timer = null;
+            }, delay);
+          }
+        };
+      } else if (!head && tail) {
+        // 无头有尾
+        return function(...args) {
+          if (!timer) {
+            // 只有timer为undefined或null才会触发，一般是第一次为undefined，触发，然后隔固定的一段时间后，timer又为null,又可以触发。
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = null;
+            }, delay);
+          }
+        };
+      } else {
+        // 报错
+        throw new Error("后面两个参数必须有一个为true");
+      }
+    }
+    // 防抖函数
+    box.onmousemove = throttle(function(e) {
+      console.log(this);
+      box.innerHTML = ++count;
+    }, 1000);
+  </script>
+</html>

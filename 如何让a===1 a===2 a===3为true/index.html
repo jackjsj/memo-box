@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let count = 1;
+      Object.prototype.valueOf = function() {
+        return count++;
+      };
+      const a = new Object("1");
+      // a.valueOf = function() {
+      //   return count++;
+      // };
+      if (a == 1 && a == 2 && a == 3) {
+        console.log("Hi Eno!");
+      }
+    </script>
+  </body>
+</html>
