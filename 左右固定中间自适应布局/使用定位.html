@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>使用定位实现左右固定，中间自适应</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+      body{
+        position: relative;
+      }
+      .center {
+        height: 300px;
+        background: red;
+        overflow: scroll;
+        margin:0 200px;
+      }
+      .left {
+        width: 200px;
+        height: 300px;
+        background: blue;
+        position:absolute;
+        top:0;
+        left:0;
+      }
+      .right {
+        width: 200px;
+        height: 300px;
+        background: orange;
+        position:absolute;
+        top:0;
+        right:0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="left"></div>
+    <div class="center">123</div>
+    <div class="right"></div>
+  </body>
+</html>
