@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .box {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #ddd;
+    }
+  </style>
+  <body>
+    <div id="box1" style="width:100px;height:100px;border:1px solid #ddd"></div>
+    <div id="box2" class="box"></div>
+    <script>
+      console.log(
+        box1.getBoundingClientRect().height,
+        box1.getBoundingClientRect().width
+      );
+      // 102 102
+      console.log(
+        box2.getBoundingClientRect().height,
+        box2.getBoundingClientRect().width
+      );
+      // 302 302
+    </script>
+  </body>
+</html>

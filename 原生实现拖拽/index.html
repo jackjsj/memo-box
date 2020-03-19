@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+      .box {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border: 2px solid #000;
+        top: 0;
+        left: 0;
+        font-size: 24px;
+        line-height: 300px;
+        text-align: center;
+        font-weight: bold;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box" class="box">可拖拽的盒子</div>
+    <script>
+      let isMouseDown = false;
+      let offsetX = 0;
+      let offsetY = 0;
+      box.onmousedown = function(e) {
+        isMouseDown = true;
+        ({ offsetX, offsetY } = e);
+      };
+      box.onmousemove = function(e) {
+        if (isMouseDown) {
+          x = e.offsetX - offsetX;
+          y = e.offsetY - offsetY;
+          const rect = box.getBoundingClientRect();
+          let { top, left } = rect;
+          box.style.top = top + y + "px";
+          box.style.left = left + x + "px";
+        }
+      };
+      box.onmouseup = function() {
+        isMouseDown = false;
+        offsetX = 0;
+        offsetY = 0;
+      };
+      box.onmouseout = box.onmouseup;
+    </script>
+  </body>
+</html>

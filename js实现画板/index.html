@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #canvas {
+        cursor: crosshair;
+        border: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="400"> </canvas>
+    <input type="button" value="生成图片" onclick="change()" /><br />
+    <img id="image" src="" width="500px" height="200px" />
+    <script type="text/javascript">
+      function change() {
+        document.getElementById("image").src = canvas.toDataURL("image/jpg");
+        //window.open("demo.htm", "height=100px, width=400px");
+        //alert(document.getElementById("image"));
+      }
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      //画一个黑色矩形
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, 600, 400);
+      //按下标记
+      var onoff = false;
+      var oldx = -10;
+      var oldy = -10;
+      //设置颜色默认为黑色
+      var linecolor = "black";
+      //宽度默认为4
+      var linw = 4;
+      //鼠标移动事件，事件绑定
+      canvas.addEventListener("mousemove", draw, true);
+      canvas.addEventListener("mousedown", down, false);
+      canvas.addEventListener("mouseup", up, false);
+      function down(event) {
+        onoff = true;
+        oldx = event.pageX - 10;
+        oldy = event.pageY - 10;
+      }
+      function up() {
+        onoff = false;
+      }
+      function draw(event) {
+        if (onoff == true) {
+          var newx = event.pageX - 10;
+          var newy = event.pageY - 10;
+          ctx.beginPath();
+          ctx.moveTo(oldx, oldy);
+          ctx.lineTo(newx, newy);
+          ctx.strokeStyle = linecolor;
+          ctx.lineWidth = linw;
+          ctx.lineCap = "round";
+          ctx.stroke();
+          oldx = newx;
+          oldy = newy;
+        }
+      }
+    </script>
+  </body>
+</html>

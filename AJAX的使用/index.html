@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box"></div>
+    <script>
+      function ajax(url) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("get", url);
+        xhr.send(null);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              box.innerHTML = JSON.parse(xhr.response).data.name;
+              console.log("请求成功");
+            } else {
+              console.log("请求失败");
+            }
+          }
+        };
+      }
+      ajax("test.json");
+    </script>
+  </body>
+</html>

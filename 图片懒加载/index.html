@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        overflow: auto;
+      }
+      .box {
+        width: 300px;
+        height: 1200px;
+        border: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584425326834&di=8de37a0b09446d50de33adcec9559995&imgtype=0&src=http%3A%2F%2Fhbimg.huabanimg.com%2F3e0584a51033e0c6017456663801a0dffa8a54d22cbaf-ZlcuTp_fw658"
+      lazy-load="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1035415831,1465727770&fm=26&gp=0.jpg"
+    />
+    <div class="box"></div>
+    <img
+      src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584425326834&di=8de37a0b09446d50de33adcec9559995&imgtype=0&src=http%3A%2F%2Fhbimg.huabanimg.com%2F3e0584a51033e0c6017456663801a0dffa8a54d22cbaf-ZlcuTp_fw658"
+      lazy-load="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1035415831,1465727770&fm=26&gp=0.jpg"
+    />
+    <script>
+      // 一开始触发一次
+      lazyLoad();
+      function lazyLoad() {
+        // 获取所有需要懒加载的图片元素
+        const lazyLoadImgs = document.querySelectorAll("img[lazy-load]");
+        [...lazyLoadImgs].forEach(img => {
+          // 计算图片元素距离视口顶部的高度
+          const rect = img.getBoundingClientRect();
+          // 如果这个高度小于视口的高度，说明已进入可视区域
+          if (rect.top < document.documentElement.clientHeight) {
+            // 将图片的url路径赋值给src
+            img.src = img.getAttribute("lazy-load");
+          }
+        });
+      }
+      // 监听滚动事件
+      window.onscroll = lazyLoad;
+    </script>
+  </body>
+</html>

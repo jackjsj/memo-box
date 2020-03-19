@@ -1,16 +1,16 @@
-function _parseInt(s, radix = 10) {
-  // 1. 将radix转成数字，如果radix不在[2,36]范围内，直接返回NaN
+function _parseInt(s, radix) {
+  // 1. 将radix转成数字，0或NaN都默认为10， 否则判断radix在不在[2,36]范围内，直接返回NaN
   radix = Number(radix);
-  if (radix === 0) {
+  if (radix === 0 || isNaN(radix)) {
     // 如果是0，那就默认为10
     radix = 10;
   } else if (radix < 2 || radix > 36) {
     return NaN;
   }
   // 2. 如果s不是数字，也不是字符串，直接返回NaN
-  if (typeof s !== 'string' && typeof s !== 'number') return NaN;
+  if (typeof s !== "string" && typeof s !== "number") return NaN;
   // 3. 如果s是数字，就先转成字符串
-  if (typeof s === 'number') {
+  if (typeof s === "number") {
     s = String(s);
   }
   // 4. 如果s以 +- 0x或0X开头，就认为s是16进制,则直接转成数值
@@ -19,7 +19,7 @@ function _parseInt(s, radix = 10) {
   if (execResult16) {
     const sign = execResult16[1];
     const value = execResult16[2];
-    return sign === '-' ? -Number(value) : Number(value);
+    return sign === "-" ? -Number(value) : Number(value);
   }
 
   // 5. 处理一般字符串
@@ -28,15 +28,15 @@ function _parseInt(s, radix = 10) {
   if (execResult) {
     s = execResult[0];
     let sign = execResult[1];
-    if (sign === '-') {
+    if (sign === "-") {
       s = s.slice(1);
     } else {
-      sign = '';
+      sign = "";
     }
     // 将s转成字符数组
     let chars = [...s];
     // 如果某个字符比进制数，就去掉它和它后面的所有字符
-    const index = chars.findIndex((c) => trans(c) > radix);
+    const index = chars.findIndex(c => trans(c) > radix);
     if (index > -1) {
       chars = chars.slice(0, index);
     }
@@ -63,7 +63,7 @@ function trans(char) {
   }
 }
 
-console.log(test('0e0',16));
+console.log(test("0e0", NaN));
 
 function test(s, radix) {
   console.log(_parseInt(s, radix));

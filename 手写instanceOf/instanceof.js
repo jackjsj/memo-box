@@ -1,3 +1,4 @@
+// 判断右边的显示原型是否在左边的隐式原型上。
 function instanceOf(a, b) {
   while ((a = a.__proto__)) {
     if (a === b.prototype) {

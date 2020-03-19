@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <div class="header"></div>
+    <script>
+      const types = {};
+      [
+        'Null',
+        'Undefined',
+        'Number',
+        'String',
+        'Boolean',
+        'Object',
+        'Symbol',
+        'Function',
+        'Array',
+        'Date',
+        'RegExp',
+        'Error',
+      ].forEach((item) => (types[`[object ${item}]`] = item.toLowerCase()));
+      console.log(types);
+      function getType(obj) {
+        // 在 IE6 中，null 和 undefined 会被 Object.prototype.toString 识别成 [object Object]
+        // 如果是null或undefined直接返回对应的字符串
+
+        if (obj == null) {
+          return obj + '';
+        }
+        // 如果是简单类型直接用typeof,是对象或function才用Object.prototype.toString
+        return typeof obj === 'object' || typeof obj === 'function'
+          ? types[Object.prototype.toString.call(obj)] || 'object'
+          : typeof obj;
+      }
+
+      console.log(getType(undefined)); // undefined
+      console.log(getType(null)); // null
+      console.log(getType(1)); // number
+      console.log(getType('string')); // string
+      console.log(getType(true)); // boolean
+      console.log(getType(new Object())); // object
+      console.log(getType(Symbol())); // symbol
+      console.log(getType(function a() {})); // function
+      console.log(getType([])); // array
+      console.log(getType(new Date())); // date
+      console.log(getType(new RegExp())); // regexp
+      console.log(getType(new Error())); // error
+    </script>
+  </body>
+</html>

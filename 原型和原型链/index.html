@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Person() {} //构造函数，函数是对象，所以它是一个对象，同时也是Function对象的实例
+      console.log(Person.__proto__ === Function.prototype); // true
+      const p = new Person(); //p是Person对象的一个实例
+      // 实例的隐式原型指向构造函数对象的显式原型
+      console.log(p.__proto__ === Person.prototype); // true
+      //Person.prototype是p实例的原型，所以它是一个对象，
+      //同时也是一个实例，可以通过__proto__属性找到这个实例的隐式原型,
+      //发现Person.prototype这个对象是Object的一个实例
+      console.log(Person.prototype.__proto__ === Object.prototype); // true
+      //Object是一个构造函数，函数是对象，所以它是一个对象，
+      //同时Object也是一个实例对象，通过__proto__属性找到Object这个实例对象的隐式原型
+      //发现Object这个构造函数对象也是Function对象的一个实例
+      console.log(Object.__proto__ === Function.prototype); //true
+      //Function是一个构造函数，函数是对象，所以它是一个对象，
+      //Function也是一个实例对象，通过__proto__属性找到Function这个实例对象的隐式原型
+      //发现Function这个构造函数对象也是Function对象的一个实例
+      console.log(Function.__proto__ === Function.prototype);
+      //所有函数对象都是Function的一个实例，包括Function这个函数对象本身
+      function a() {}
+      console.log(a.__proto__ === Function.prototype);
+
+      // ===================================================
+      console.log('===================================================');
+
+      // 1. 任何对象都具有__proto__属性，这个属性指向对象的原型
+      // 2. 任何方法都具有prototype属性，这个属性指向方法构造出的实例的原型
+      // 3. 任何对象（除了Object.prototype这个对象）的__proto__===其构造函数(构造函数属于方法)的prototype
+      // 4. 而Object.prototype这个对象的__proto__为null
+      // 5. 方法是一种特殊对象，所以其作为一个实例也具有__proto__属性，它的原型是Function.prototype
+      // 任何方法.__proto__ === Function.prototype;
+      // 也就是任何方法都是由Function构造函数构造出来的实例，包括Function本身
+    </script>
+  </body>
+</html>
