@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RequestAnimationFrame的使用</title>
+    <style>
+      div {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        top: 0;
+        border: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+    <script>
+      console.log(top)
+      let count = 0;
+      requestAnimationFrame(function cb() {
+        box.style.top = count+'px';
+        if (count < 100) {
+          count++;
+          requestAnimationFrame(cb);
+        }
+      });
+    </script>
+  </body>
+</html>
