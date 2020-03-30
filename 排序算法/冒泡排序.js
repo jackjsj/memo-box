@@ -3,20 +3,16 @@ var arr = [3, 1, 4, 6, 5, 7, 2];
 // 1. 相邻两个数对比，如果左边的比右边大，就互换位置，一直比到最后两个数，完成一次循环，这时最大的数在最后面
 // 2. 再从头开始比
 
-function sort(arr) {
+function sort(nums) {
   // 执行一轮后，最大的值在最后面，一共要执行N轮，N为（数组长度-1）
-  let n = arr.length - 1;
-  while (n > 0) {
-    for (let i = 0; i < arr.length - 1; i++) {
-      if (arr[i] > arr[i + 1]) {
-        let temp = arr[i];
-        arr[i] = arr[i + 1];
-        arr[i + 1] = temp;
+  for (let j = 0; j < nums.length - 1; j++) {
+    for (let i = 0; i < nums.length - 1 - j; i++) {
+      if (nums[i] > nums[i + 1]) {
+        [nums[i], nums[i + 1]] = [nums[i + 1], nums[i]];
       }
     }
-    n--;
   }
-  return arr
+  return nums;
 }
 
 console.log(sort(arr));

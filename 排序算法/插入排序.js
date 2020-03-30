@@ -16,22 +16,24 @@ function sort(arr) {
       j++;
     }
     newArr.splice(j, 0, cur);
-    // for (let j = 0; j < newArr.length; j++) {
-    //   const newCur = newArr[j];
-    //   // 如果当前遍历的项比新数组当前遍历的项小，就插入到新数组当前遍历的位置
-    //   // 否则，继续遍历，直到遍历完还没插入，那就插入新数组最后面
-    //   if (cur < newCur) {
-    //     // 将新的数插入到当前位置
-    //     newArr.splice(j, 0, cur);
-    //     break;
-    //   }
-    //   if(j === newArr.length - 1){
-    //     newArr.push(cur)
-    //     break;
-    //   }
-    // }
   }
   return newArr;
+}
+
+function sort2(arr) {
+  if (arr.length < 2) {
+    return arr;
+  }
+  for (let i = 1; i < arr.length; i++) {
+    for (let j = i - 1; j >= 0; j--) {
+      if (arr[i] > arr[j]) {
+        arr[j + 1] = arr[j];
+        j--;
+      }
+    }
+    arr[j + 1] = arr[i];
+  }
+  return arr;
 }
 
 console.log(sort(arr));

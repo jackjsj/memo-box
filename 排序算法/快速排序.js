@@ -1,22 +1,20 @@
 var arr = [3, 1, 4, 6, 5, 7, 2];
-// [3,1,4,  2,  5,7,6]
-// [3,1,4,6,5, 2, 7]
-
 function sort(arr) {
   // 将arr平均分为两部分
   let left = 0;
   let right = arr.length - 1;
   // 中间的索引
-  let midIndex = Math.floor((left + right + 1) / 2);
+  let midIndex = Math.floor((left + right) / 2);
   let mid = arr[midIndex];
-  while (left < right) {
+  // 这个mid值要先算，因为遍历途中获取，这个值可能会因为交换位置后发生改变
+  while (left <= right) {
     while (arr[left] < mid) {
       left++;
     }
     while (arr[right] > mid) {
       right--;
     }
-    if (left < right && arr[left] >= mid && arr[right] <= mid) {
+    if (left <= right) {
       [arr[left], arr[right]] = [arr[right], arr[left]];
       left++;
       right--;
