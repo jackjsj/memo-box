@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="http://127.0.0.1:5500/css/loading.css" />
+    <style>
+      div {
+        border: 1px solid #ddd;
+        width: 100px;
+        height: 100px;
+      }
+    </style>
   </head>
   <body>
-    <script>
-      function* sayHello(x) {
-        var a = (yield x) + (yield 5);
-        console.log(a);
-        var b = a + 10;
-        return b;
-      }
-      const h = sayHello(1);
-      console.log(h.next());
-      console.log(h.next(1));
-      console.log(h.next(0));
-    </script>
+    <div></div>
   </body>
 </html>
