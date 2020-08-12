@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <a href="#first">first</a>
+    <a href="#second">second</a>
+    <a href="#third">thrid</a>
+    <div id="router-view"></div>
+    <script>
+      const view = document.getElementById('router-view');
+      const onhashchange = function() {
+        console.log(location.hash)
+        if (location.hash) {
+          const hash = location.hash.slice(1);
+          view.textContent = hash;
+        } else {
+          location.hash = '#first';
+        }
+      };
+      window.addEventListener('hashchange', onhashchange);
+      onhashchange();
+    </script>
+  </body>
+</html>

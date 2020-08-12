@@ -6,28 +6,27 @@ function deepClone(target) {
   const _clone = (target) => {
     // null也直接返回
     if (target === null) {
-      // typeof null 为 'object'
       return null;
     }
     // 除了null的基本类型，都直接返回
-    if (typeof target !== 'object' && typeof target !== 'function') {
+    if (typeof target !== "object" && typeof target !== "function") {
       return target;
     }
     let cloned;
-    if (getType(target) === 'Array') {
+    if (getType(target) === "Array") {
       // 如果是数组，创建一个新数组
       cloned = [];
-    } else if (getType(target) === 'RegExp') {
+    } else if (getType(target) === "RegExp") {
       // 如果是正则，就创建一个新正则，使用原来的source和flags
       cloned = new RegExp(target.source, target.flags);
       // 同时设置正则的lastIndex属性
       cloned.lastIndex = target.lastIndex;
-    } else if (getType(target) === 'Date') {
+    } else if (getType(target) === "Date") {
       // 如果是日期，重新创建一个日期
       cloned = new Date(target.getTime());
     } else {
       // 不是以上类型，说明是object类型，处理对象原型
-      cloned = Object.create(target.__proto__);
+      cloned = Object.create(Object.getPrototypeOf(target));
     }
 
     // 处理循环引用
@@ -41,7 +40,7 @@ function deepClone(target) {
       return copyedObjs[index];
     }
     for (const key in target) {
-      cloned[key] = deepClone(target[key]);
+      cloned[key] = _clone(target[key]);
     }
     return cloned;
   };
@@ -53,7 +52,7 @@ function getType(target) {
 }
 
 const person = {
-  name: 'Jesse',
+  name: "Jesse",
   birth: new Date(),
   reg: /123/g,
   obj: {
@@ -71,7 +70,7 @@ const person = {
 // console.log(clone.fn === person.fn);
 // console.log(clone.obj.key === person.obj.key);
 // console.log(Object.prototype.toString.call({}).matchAll(/^\[object (\w+)\]$/));
-const string = 'test1test2test3';
+const string = "test1test2test3";
 
 // g 修饰符加不加都可以
 const regex = /t(e)(st(\d?))/g;

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #box {
+        width: 300px;
+        height: 300px;
+        line-height: 300px;
+        text-align: center;
+        font-size: 40px;
+        border: 1px solid;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">0</div>
+    <script>
+      const box = document.getElementById("box");
+      function onMouseMove(e) {
+        console.log(e);
+        box.innerHTML = Number(box.innerHTML) + 1;
+      }
+      box.addEventListener("mousemove", debounce(onMouseMove, 100, true));
+      function debounce(fn, wait, immediate) {
+        let timer;
+        return function () {
+          if (timer) {
+            clearTimeout(timer);
+          }
+          if (immediate) {
+            if (!timer) {
+              fn.apply(this.arguments);
+            }
+            timer = setTimeout(() => {
+              timer = null;
+            }, wait);
+          } else {
+            timer = setTimeout(() => {
+              fn.apply(this, arguments);
+            }, wait);
+          }
+        };
+      }
+    </script>
+  </body>
+</html>

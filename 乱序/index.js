@@ -2,17 +2,17 @@
 function shuffle(a) {
   const arr = a.slice();
   const length = arr.length;
-  for (let i = length; i >= 1; i--) {
+  for (let i = length; i >= 1; i--) { // 倒着遍历是为了生成随机数方便，生成0-n比生成n-last方便，也更好理解
     // 随机生成一个索引
     const randomIndex = Math.floor(Math.random() * i);
-    [arr[randomIndex], arr[i - 1]] = [arr[i - 1], arr[randomIndex]];
+    [arr[randomIndex], arr[i - 1]] = [arr[i - 1], arr[randomIndex]]; // 互换当前位置和随机位置的两个数
   }
   return arr;
 }
 
 const array = [1, 2, 3];
 const result = {};
-for (let i = 0; i < 10000; i++) {
+for (let i = 0; i < 1000000; i++) {
   const item = shuffle(array);
   if (result[item]) {
     result[item].num += 1;

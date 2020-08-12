@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>节流</title>
+    <style>
+      div {
+        height: 300px;
+        width: 300px;
+        text-align: center;
+        line-height: 300px;
+        font-size: 50px;
+        background: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      0
+    </div>
+    <script src="throttle.js"></script>
+    <script>
+      let count = 0;
+      function onMouseMove(e) {
+        this.innerHTML = Number(this.innerHTML) + 1;
+        console.log(e);
+      }
+      let throttled = throttle(onMouseMove, 1000, true);
+      let throttled2 = throttle2(onMouseMove, 1000, true);
+      document.getElementById('box').addEventListener('mousemove', throttled2);
+    </script>
+  </body>
+</html>

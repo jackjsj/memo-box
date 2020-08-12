@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Parent(name) {
+        this.name = name;
+      }
+      Parent.prototype.getName = function () {
+        return this.name;
+      };
+
+      function Child() {}
+      Child.prototype = new Parent("Jesse");
+      var c1 = new Child();
+      var c2 = new Child();
+      console.log(Child.prototype.name);
+    </script>
+  </body>
+</html>

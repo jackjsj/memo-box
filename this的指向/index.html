@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        border: 1px solid #ddd;
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+    <script>
+      var word = 'hello';
+      const sayHello = function() {
+        console.log(this.word);
+      };
+      // document.getElementById('box').addEventListener('click', sayHello); // 直接使用sayHello，方法里的this是box元素
+      // document.getElementById('box').addEventListener('click', sayHello.bind(this)); // 通过bind方法显示指定sayHello中的this为window
+      document.getElementById('box').addEventListener('click', () => {
+        sayHello(); // 这里相当于this.sayHello，而箭头函数自己没有this, 箭头中的this是当前箭头函数所在的上下文，这里是window
+      });
+    </script>
+  </body>
+</html>

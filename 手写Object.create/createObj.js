@@ -7,9 +7,9 @@ Person.prototype.sayHello = function() {
 };
 
 function createObj(obj) {
-  function fn() {}
-  fn.prototype = obj;
-  return new fn();
+  function Fn() {}
+  Fn.prototype = obj;
+  return new Fn();
   // const _obj = {};
   // _obj.__proto__ = obj; // 直接修改__proto__性能不好
   // return _obj;

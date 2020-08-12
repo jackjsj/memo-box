@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>虚拟DOM</title>
-</head>
-<body>
-  <div id="app"></div>
-  <script src="index.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>虚拟DOM</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      function el(tag, attr, children) {
+        return new VDom(tag, attr, children);
+      }
+
+      class VDom {
+        constructor(tag, attr, children) {
+          this.tag = tag;
+          this.attr = attr;
+          this.children = children;
+        }
+        render() {
+          const elem = document.createElement(this.tag);
+          for (let key in this.attr) {
+            elem.setAttribute(key, this.attr[key]);
+          }
+          this.children.forEach((child) => {
+            elem.appendChild(child.render());
+          });
+          return elem;
+        }
+      }
+      const elem = el("ul", { id: "box" }, [
+        el("li", { class: "red" }, []),
+        el("li", { class: "red" }, []),
+        el("li", { class: "red" }, []),
+      ]).render();
+      document.body.appendChild(elem);
+    </script>
+  </body>
 </html>

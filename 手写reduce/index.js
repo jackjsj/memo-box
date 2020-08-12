@@ -1,6 +1,6 @@
-Array.prototype.reduce1 = function(cb, initValue) {
+Array.prototype.reduce1 = function (cb, initValue) {
   let accumulator = initValue || this[0];
-  let cur = initValue === undefined ? 0 : 1;
+  let cur = initValue === undefined ? 1 : 0;
   while (cur < this.length) {
     accumulator = cb(accumulator, this[cur], cur, this);
     cur++;
@@ -14,10 +14,7 @@ Array.prototype.reduce1 = function(cb, initValue) {
 //   })
 // );
 console.log(
-  [1, 2, 3].reduce((cur, next, index, array) => {
-    console.log({ cur });
-    console.log({ next });
-    console.log({ index });
+  [1, 2, 3].reduce1((cur, next, index, array) => {
     return cur + next;
   })
 );

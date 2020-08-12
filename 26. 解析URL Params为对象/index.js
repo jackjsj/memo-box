@@ -7,66 +7,34 @@ let url =
   enabled: true, // 未指定值得 key 约定为 true
 }
 */
-console.log(parseParam(url));
-function parseVal(val) {
-  if (val === void 0) {
-    return true;
-  }
-  val = decodeURIComponent(val);
-  if (!Number.isNaN(Number(val))) {
-    return Number(val);
-  }
-  return val;
-}
-
-function parseParam(url) {
-  const paramStr = url.split("?")[1];
-  const paramArr = paramStr.split("&");
-  const result = {};
-  for (let item of paramArr) {
+getParams(url);
+function getParams(url) {
+  url = url.split("?")[1]; //user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&enabled
+  // 用&将字符串分割
+  const arr = url.split("&");
+  let result = {};
+  arr.forEach((item) => {
+    // item => "user=anonymous" "enabled"
+    // 使用=对item进行分割
     let [key, value] = item.split("=");
-    value = parseVal(value);
-    if (result[key] !== void 0) {
-      if (Array.isArray(result[key])) {
-        result[key].push(value);
+    if (value !== undefined) {
+      value = decodeURIComponent(value);
+      if (/^\d+$/.test(value)) {
+        // 说明是数字
+        value = parseInt(value);
+      }
+      // 判断result中是否有当前key
+      if (result.hasOwnProperty(key)) {
+        // 有
+        result[key] = [].concat(result[key], value);
       } else {
-        result[key] = [result[key], value];
+        // 没有
+        result[key] = value;
       }
     } else {
-      result[key] = value;
+      result[key] = true;
     }
-  }
+  });
+  console.log(result);
   return result;
 }
-
-// function parseParam(url) {
-//   // 获取search部分
-//   const search = new URL(url).search;
-//   const result = {};
-//   const searchParams = new URLSearchParams(search);
-//   const keys = searchParams.keys();
-//   for (const key of keys) {
-//     let value = searchParams.getAll(key);
-//     value = parseValue(value);
-//     if (value.length <= 1) {
-//       result[key] = value[0];
-//     } else {
-//       result[key] = value;
-//     }
-//   }
-//   return result;
-// }
-// function parseValue(vals) {
-//   return vals.map(val => {
-//     // 如果是空字符串，则返回true
-//     if (val === "") {
-//       return true;
-//     }
-//     // 如果是数字，则转成Number
-//     if (Number(val)) {
-//       return Number(val);
-//     }
-//     return val;
-//   });
-// }
-// console.log(parseParam(url));

@@ -1,10 +1,23 @@
-function instanceOf(left,right){
-  while(left = left.__proto__){
-    if(left === right.prototype){
-      return true;
-    }
-  }
-  return false;
+function taskSum(wait, cb) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      cb();
+      resolve();
+    }, wait);
+  });
 }
 
-console.log(instanceOf(/aa/g,Object))
+Promise.prototype.task = function (wait, cb) {
+  return this.then(() => {
+    return taskSum(wait, cb);
+  });
+};
+taskSum(1000, () => {
+  console.log(1);
+})
+  .task(1200, () => {
+    console.log(2);
+  })
+  .task(1300, () => {
+    console.log(3);
+  });

@@ -5,45 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RequestAnimationFrame的使用</title>
     <style>
-      * {
-        padding: 0;
-        margin: 0;
-      }
       div {
         position: absolute;
+        width: 100px;
+        height: 100px;
         top: 0;
         border: 1px solid #ddd;
       }
     </style>
   </head>
   <body>
-    <div id="box">
-      <p>
-        window.requestAnimationFrame()
-        告诉浏览器，你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调更新动画。<br />
-        该方法需要传入一个回调函数作为参数，该回调会在浏览器下一次重绘前执行。<br />
-        如果你想在浏览器下次重绘前继续更新下一帧动画，那么回调函数自身必须再次调用
-        window.requestAnimationFrame()
-      </p>
-      <button onclick="stop()">停</button>
-    </div>
+    <div id="box"></div>
     <script>
-      console.log(top);
+      console.log(top)
       let count = 0;
-      let longid;
-      longid = requestAnimationFrame(function cb() {
-        box.style.top = count + 'px';
+      requestAnimationFrame(function cb() {
+        box.style.top = count+'px';
         if (count < 100) {
-          ++count;
-          longid = requestAnimationFrame(cb);
-        } else {
-          count = 0;
-          longid = requestAnimationFrame(cb);
+          count++;
+          requestAnimationFrame(cb);
         }
       });
-      function stop() {
-        cancelAnimationFrame(longid);
-      }
     </script>
   </body>
 </html>

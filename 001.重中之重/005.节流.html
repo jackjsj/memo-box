@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>节流</title>
+    <style>
+      #box {
+        width: 300px;
+        height: 300px;
+        border: 1px solid;
+        text-align: center;
+        line-height: 300px;
+        font-size: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">0</div>
+    <script>
+      const box = document.getElementById("box");
+      box.addEventListener(
+        "mousemove",
+        throttle(onMouseMove, 1000, true, true)
+      );
+      function onMouseMove(e) {
+        console.log(e);
+        box.innerHTML = Number(box.innerHTML) + 1;
+      }
+      function throttle(fn, wait, head = false, tail = true) {
+        let timer;
+        return function () {
+          if (!head && tail) {
+            if (!timer) {
+              timer = setTimeout(() => {
+                fn.apply(this, arguments);
+                timer = null;
+              }, wait);
+            }
+          } else if (head && !tail) {
+            if (!timer) {
+              timer = setTimeout(() => {
+                timer = null;
+              }, wait);
+              fn.apply(this, arguments);
+            }
+          } else if (head && tail) {
+            if (timer === undefined) {
+              fn.apply(this, arguments);
+            }
+            if (!timer) {
+              timer = setTimeout(() => {
+                fn.apply(this, arguments);
+                timer = null;
+              }, wait);
+            }
+          }
+        };
+      }
+    </script>
+  </body>
+</html>

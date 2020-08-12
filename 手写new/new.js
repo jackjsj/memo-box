@@ -1,7 +1,7 @@
 function newObject() {
-  const obj = {};
+  let obj = {};
   const Con = [].shift.call(arguments);
-  obj.__proto__ = Con.prototype;
+  obj = Object.create(Con.prototype); // obj.__proto__ = Con.prototype  指定对象的原型
   const result = Con.apply(obj, arguments);
   return result && (typeof result === 'object' || typeof result === 'function')
     ? result
@@ -11,8 +11,7 @@ function newObject() {
 function Person(name, age) {
   this.name = name;
   this.age = age;
-  return function(){};
 }
 
 const p = newObject(Person, 'jack', 18);
-console.log(p);
+console.log(p.name);

@@ -1,4 +1,5 @@
 var arr = [3, 1, 4, 6, 5, 7, 2];
+
 function sort(arr) {
   // 将arr平均分为两部分
   let left = 0;

@@ -8,8 +8,7 @@
   <body>
     <div
       id="box"
-      style="width:400px;
-    height:400px;border:1px solid #ddd;"
+      style="width: 400px; height: 400px; border: 1px solid #ddd;"
     ></div>
   </body>
   <script>
@@ -18,7 +17,7 @@
     // 防抖
     function debounce(fn, delay, immediate) {
       let timer;
-      return function(...args) {
+      return function (...args) {
         // 再次触发就重新计时
         clearTimeout(timer);
         if (immediate) {
@@ -37,50 +36,34 @@
     }
 
     function throttle(fn, delay, head, tail = true) {
-      let timer;
-      if (head && tail) {
-        // 有尾有头
-        return function(...args) {
-          if (!timer) {
-            if (timer === undefined) {
-              fn.apply(this, args);
-            }
-            // 只有timer为undefined或null才会触发，一般是第一次为undefined，触发，然后隔固定的一段时间后，timer又为null,又可以触发。
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = null;
-            }, delay);
-          }
-        };
-      } else if (head && !tail) {
-        // 有头无尾
-        return function(...args) {
-          if (!timer) {
-            // 只有timer为undefined或null才会触发，一般是第一次为undefined，触发，然后隔固定的一段时间后，timer又为null,又可以触发。
-            fn.apply(this, args);
-            timer = setTimeout(() => {
-              timer = null;
-            }, delay);
-          }
-        };
-      } else if (!head && tail) {
-        // 无头有尾
-        return function(...args) {
-          if (!timer) {
-            // 只有timer为undefined或null才会触发，一般是第一次为undefined，触发，然后隔固定的一段时间后，timer又为null,又可以触发。
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = null;
-            }, delay);
-          }
-        };
-      } else {
-        // 报错
-        throw new Error("后面两个参数必须有一个为true");
+      if (!head && !tail) {
+        throw new Error('不能是无头无尾');
       }
+      let timer;
+      return function () {
+        if (!timer) {
+          if (head && tail) {
+            //有头有尾 必执行这行代码
+            if (timer === undefined) {
+              fn.apply(this, arguments);
+            }
+          }
+          timer = setTimeout(() => {
+            if (tail) {
+              // 不管有没有头，有尾一定要在这里执行这一行代码
+              fn.apply(this, arguments);
+            }
+            timer = null;
+          });
+          if (head && !tail) {
+            // 只有在有头无尾的情况，才执行这行
+            fn.apply(this, arguments);
+          }
+        }
+      };
     }
     // 防抖函数
-    box.onmousemove = throttle(function(e) {
+    box.onmousemove = throttle(function (e) {
       console.log(this);
       box.innerHTML = ++count;
     }, 1000);
